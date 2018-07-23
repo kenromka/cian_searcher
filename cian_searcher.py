@@ -39,12 +39,14 @@ def read_flats(filename):
             offers_old[i] = offers_old[i].rstrip("\n") 
 
 def send_vk(link):
-    session = vk.Session(access_token='ffkfkkfkfTOKENflflf4kf')
+    session = vk.Session(access_token='TOKEN_FROM_VK_COM_KKFKFKFKFKFKKFKFKFK')
     api = vk.API(session)
     global users
     for user in users:
         api.messages.send(domain=user, message = "NEW FLAT", v = 5.80)
         api.messages.send(domain=user, message = link, v = 5.80)
+    #sleep because we can't send 20+ msgs per sec
+    time.sleep(60//users.__len__()+1)
 
 def print_time():
     print("Updated on:")
@@ -70,7 +72,7 @@ def main():
 
             read_flats(data_file)
             n = num_offers//25+((num_offers%25 == 0 and 0) or 1)
-            for i in range(0,n):
+            for i in range(0,n):#TOD0
                 html = get_html(cian_link1+str(i+1)+cian_link2)
                 soup = BeautifulSoup(html, "html.parser")
                 tag = soup.find(attrs={"class" : re.compile('totalOffers')})
